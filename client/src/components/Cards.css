@@ -1,0 +1,70 @@
+
+
+/* Some basic CSS overrides */
+.card {
+  border-radius: 16px;
+	align-items: center;
+	justify-content: center;
+  padding: 1rem;
+  height: fit-content;
+	max-width: 200px;
+  min-width: 180px;
+  width: fit-content;
+  background-color: #f2f2f249;
+  border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(30px);
+	text-align: left;
+	color: #595959;
+  margin: 10px;
+}
+
+.title {
+	font-size: 30px;
+  font-weight: 600;
+}
+
+.actions {
+	margin-top: 10px; 
+  display: flex;
+	justify-content: right;
+}
+
+.btn--act{
+	border: 0;
+	background-color: #afafaf;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	line-height: 1;
+	transition: 0.45s ease;
+  font-weight: 300;
+  font-size: 12px;
+}
+.btn--act {
+		height: 30px;
+		width: 30px;
+    margin: 2px;
+    padding: 10px;
+		border-radius: 50%;
+		border: 2px solid #595959;
+		color: #f2f2f2;
+    text-decoration: none;
+}
+.btn--act:hover{
+  border: 2px solid #F2F2F2;
+  border-radius: 50%;
+  box-shadow: 55px rgb(255, 255, 255);
+  color: #595959;
+}
+
+.description{
+  font-size: 20px;
+  font-weight: 400;
+  max-width: 150px;
+}
+.date{
+  font-size: 12px;
+  font-weight: 300;
+}
