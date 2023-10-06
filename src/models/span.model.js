@@ -1,12 +1,17 @@
 import mongoose from "mongoose"
 
-const layoutSchema = new mongoose.Schema({
-  title: {
-    type: String,
+const spanSchema = new mongoose.Schema({
+  lat: {
+    type: Number,
     required: true,
   },
-  description: {
-    type: String,
+  lon: {
+    type: Number,
+    required: true,
+  },
+  bhgps: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Bhgps',
     required: true,
   },
   date: {
@@ -17,9 +22,9 @@ const layoutSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  }
+  },
 }, {
   timestamps: true
 })
 
-export default mongoose.model("Layout", layoutSchema)
+export default mongoose.model("Span", spanSchema)

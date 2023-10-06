@@ -4,7 +4,12 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 
 import authRoutes from "./routes/auth.routes.js"
-import layouRoutes from "./routes/layouts.routes.js"
+import oltRoutes from "./routes/olt.routes.js"
+import tapRoutes from "./routes/tap.routes.js"
+import splitterRoutes from "./routes/splitter.routes.js"
+import ontRoutes from "./routes/ont.routes.js"
+import backhaulRoutes from "./routes/backhaul.routes.js"
+import bhgpsRoutes from "./routes/bhgps.routes.js"
 
 const app = express()
 
@@ -17,6 +22,11 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/api", authRoutes)
-app.use("/api", layouRoutes)
+app.use("/api", oltRoutes)
+app.use("/api", tapRoutes)
+app.use("/api", splitterRoutes)
+app.use("/api", ontRoutes)
+app.use("/api", backhaulRoutes)
+app.use("/api", bhgpsRoutes)
 
 export default app
