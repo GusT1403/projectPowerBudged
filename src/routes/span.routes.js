@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { authRequired } from "../middlewares/validateToken.js"
-import { getSpans,getSpan,createSpan,updateSpan,deleteSpan } from "..controllers/span.controller.js"
+import { getSpans,getSpan,createSpan,updateSpan,deleteSpan } from "../controllers/span.controller.js"
 import { validateSchema } from "../middlewares/validateData.js"
 import { createSpanSchema } from "../schemas/span.schema.js"
 const router = Router()

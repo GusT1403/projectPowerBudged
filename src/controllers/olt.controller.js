@@ -50,6 +50,6 @@ export const updateOlt = async (req, res) => {
     }
     res.json(olt)
   } catch (error) {
-    return res.status(404).json({ message: "Olt not found" })
+    return res.status(500).json({ message: error.message })
   }
 }

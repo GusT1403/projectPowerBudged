@@ -46,7 +46,7 @@ export const updateOnt = async (req, res) => {
     }
     res.json(ont)
   } catch (error) {
-
+    return res.status(500).json({ message: error.message })
   }
 }
 export const deleteOnt = async (req, res) => {

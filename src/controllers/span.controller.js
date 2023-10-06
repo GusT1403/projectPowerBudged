@@ -47,7 +47,7 @@ export const updateSpan = async (req, res) => {
     }
     res.json(span)
   } catch (error) {
-
+    return res.status(500).json({ message: error.message })
   }
 }
 export const deleteSpan = async (req, res) => {

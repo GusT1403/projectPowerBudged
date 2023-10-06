@@ -10,6 +10,7 @@ import splitterRoutes from "./routes/splitter.routes.js"
 import ontRoutes from "./routes/ont.routes.js"
 import backhaulRoutes from "./routes/backhaul.routes.js"
 import bhgpsRoutes from "./routes/bhgps.routes.js"
+import spanRoutes from "./routes/span.routes.js"
 
 const app = express()
 
@@ -28,5 +29,6 @@ app.use("/api", splitterRoutes)
 app.use("/api", ontRoutes)
 app.use("/api", backhaulRoutes)
 app.use("/api", bhgpsRoutes)
+app.use("/api", spanRoutes)
 
 export default app

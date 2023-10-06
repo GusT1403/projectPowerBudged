@@ -46,7 +46,7 @@ export const updateSplitter = async (req, res) => {
     }
     res.json(splitter)
   } catch (error) {
-
+    return res.status(500).json({ message: error.message })
   }
 }
 export const deleteSplitter = async (req, res) => {
