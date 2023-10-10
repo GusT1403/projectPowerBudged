@@ -49,9 +49,11 @@
 .input-box input::placeholder{
   color: #ffffff;
 }
-.input-box input::placeholder::before{
-  content: "";
+
+.wrapper input:focus::placeholder {
+  color: transparent;
 }
+
 .input-box input:focus{
   border: 3px solid rgba(255, 255, 255, 0.556);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.556);

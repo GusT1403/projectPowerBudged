@@ -19,7 +19,7 @@ function Navbar() {
         <Link to="/" className="nav-link">{ user.username }</Link>
         </li>
           <li className="nav-item">
-          <Link to="/add-layout" className="nav-link">Add Layout</Link>
+          <Link to="/add-olt" className="nav-link">Add Layout</Link>
         </li>
         <li className="nav-item">
           <Link to="/" onClick={() => { logout() }} className="nav-link">Logout</Link>

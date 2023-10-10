@@ -16,7 +16,7 @@ function LoginPage() {
 
   useEffect(() => {
     if(isAuthenticated){
-      navigate("/layouts")
+      navigate("/workarea")
     }
   }, [isAuthenticated])
 
