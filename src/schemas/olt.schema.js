@@ -19,5 +19,11 @@ export const createOLTSchema = z.object({
   powerOut: z.number({
     required_error: "Power out is required"
   }),
+  x: z.number({
+    required_error: "Power out is required"
+  }),
+  y: z.number({
+    required_error: "Power out is required"
+  }),
   date: z.string().datetime().optional(),
 })

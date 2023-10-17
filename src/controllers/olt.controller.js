@@ -12,7 +12,7 @@ export const getOlts = async (req, res) => {
 }
 export const createOlt = async (req, res) => {
   try {
-    const { power, connector, coupler, fusion, maxDistance, powerOut, date } = req.body
+    const { power, connector, coupler, fusion, maxDistance, powerOut, x, y, date } = req.body
     const newOlt = new Olt({
       power,
       connector,
@@ -20,6 +20,8 @@ export const createOlt = async (req, res) => {
       fusion,
       maxDistance,
       powerOut,
+      x,
+      y,
       date,
       user: req.user.id,
     })

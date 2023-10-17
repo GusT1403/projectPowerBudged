@@ -1,13 +1,29 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import './OltForm.css';
 import { useOlt } from "../context/OltContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function OltForm() {
-  const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm();
-  const { createOlt } = useOlt();
+  const { register, handleSubmit, setValue, setError, clearErrors, formState: { errors } } = useForm();
+  const { createOlt, getOlt, updateOlt} = useOlt();
   const navigate = useNavigate();
+  const params = useParams()
 
+  useEffect(() => {
+    async function loadLayout() {
+      if (params.id) {
+        const olt = await getOlt(params.id)
+        setValue('power', olt.power)
+        setValue('connector', olt.connector)
+        setValue('coupler', olt.coupler)
+        setValue('fusion', olt.fusion)
+        setValue('maxDistance', olt.maxDistance)
+      }
+    }
+    loadLayout()
+  }, [])
+  console.log(params)
   const onSubmit = handleSubmit(async (data) => {
 
     const powerValid = !isNaN(data.power);
@@ -36,13 +52,13 @@ function OltForm() {
     const powerOut = power - connector;
     const newData = { power, connector, coupler, fusion, maxDistance, powerOut };
 
-    createOlt(newData);
+    updateOlt(params.id, newData);
 
     navigate("/workarea");
   });
 
   const handleOutsideClick = () => {
-    navigate("/");
+    navigate("/workarea");
   }
 
   return (
@@ -82,4 +98,4 @@ function OltForm() {
   )
 }
 
-export default OltForm;
+export default OltForm

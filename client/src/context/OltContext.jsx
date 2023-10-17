@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react"
-import { createOltRequest, getOltsRequest } from "../api/olt"
+import { createOltRequest, getOltsRequest, getOltRequest, updateOltRequest } from "../api/olt"
 
 const OltContext = createContext()
 
@@ -25,7 +25,23 @@ export function OltProvider({ children}) {
   }
   const createOlt = async (olt) => {
     const res = await createOltRequest(olt)
-    console.log(res)
+  }
+
+  const getOlt = async(id) => {
+    try {
+      const res = await getOltRequest(id)
+      return res.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const updateOlt = async (id, olt) => {
+    try {
+      await updateOltRequest(id,olt)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return(
@@ -33,6 +49,8 @@ export function OltProvider({ children}) {
       olt,
       createOlt,
       getOlts,
+      getOlt,
+      updateOlt,
     }}>
     {children}
   </OltContext.Provider>

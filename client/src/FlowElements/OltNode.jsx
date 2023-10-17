@@ -1,35 +1,25 @@
-import React, { memo, useEffect } from 'react'
-import { useOlt } from "../context/OltContext"
-import { Position } from "reactflow"
-import CustomHandle from './CustomHandle.jsx'
+import React, { memo } from 'react';
+import { Handle, Position } from 'reactflow';
+import { Link } from "react-router-dom";
+import "./Olt.css";
 
-const OltNode = ({ data }) => {
-
-  const { isConnectable, maxConnections } = data
-
-  const { getOlts, olt } = useOlt()
-  useEffect(() => {
-    getOlts()
-  }, [])
-
+const CustomNode = ({ data }) => {
+  
+  console.log(data)
   return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '200px',
-        height: '100px',
-        border: '1px solid #1a192b',
-        borderRadius: '5px',
-        padding: '10px',
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <CustomHandle position={Position.Right} isConnectable={isConnectable} maxConnections={maxConnections}/>
-      <span>Power Out:</span>
+    <div className='olt-node'>
+      <Handle
+        className='customHandle'
+        position={Position.Right}
+        type='source'
+        isConnectable={{isConnectable: true}}
+        maxConnections={{maxConnections: 1}}
+      />
+      <div className='olt-title'><h1>OLT</h1></div>
+      <div className='olt-data'> <p>Power out:</p> <h3>{`${data.powerOut}`}</h3> <h6>dbm</h6></div>
+      <div className='olt-link'><Link to={`/olt/${data._id}`} className='olt-edit'>Edit</Link></div>
     </div>
-  )
-}
+  );
+};
 
-export default OltNode
+export default memo(CustomNode);
