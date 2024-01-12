@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 22vw;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .2);
@@ -25,10 +26,32 @@
   margin-bottom: 35px;
 }
 
+.combo-box{
+  width: 100%;
+  height: 50px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.combo-box select{
+  width: 100%;
+  height: 80%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 16px;
+  color: #404040;
+  padding-left: 10px;
+  transition: box-shadow 0.3s ease-in-out;
+  border-radius: 15px;
+  position: relative;
+}
+
 .input-box {
   width: 100%;
   height: 50px;
-  margin-bottom: 25px; /* Reducir el espacio entre elementos */
+  margin-bottom: 25px;
   position: relative;
 }
 
@@ -38,7 +61,7 @@
   color: rgba(255, 255, 255, 0.803);
   pointer-events: none;
   transition: top 0.3s ease-in-out, color 0.3s ease-in-out;
-  top: -12px; /* Ajustar la posición vertical del label */
+  top: -12px;
   left: 10px;
   position: absolute;
 }
@@ -69,6 +92,27 @@
 
 .input-box input:focus::placeholder {
   color: transparent;
+}
+
+.del-btn{
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 30%;
+  height: 25px;
+  background: #404040;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  color: #F2F2F2;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.del-btn:hover {
+  color: #ff6868;
 }
 
 button.btn {

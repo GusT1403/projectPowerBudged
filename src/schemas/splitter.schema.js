@@ -7,5 +7,11 @@ export const createSplitterSchema = z.object({
   out: z.number({
     required_error: "Output attenuation is required"
   }),
+  x: z.number({
+    required_error: "Position in x axis is required"
+  }),
+  y: z.number({
+    required_error: "Position in y axis is required"
+  }),
   date: z.string().datetime().optional(),
 })

@@ -12,11 +12,13 @@ export const getTaps = async (req, res) => {
 }
 export const createTap = async (req, res) => {
   try {
-    const { configuration, insert, tap, date } = req.body
+    const { configuration, insert, tap, x, y, date } = req.body
     const newTap = new Tap({
       configuration,
       insert,
       tap,
+      x,
+      y,
       date,
       user: req.user.id,
     })

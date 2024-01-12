@@ -9,6 +9,14 @@ const splitterSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  x: {
+    type: Number,
+    required: true,
+  },
+  y: {
+    type: Number,
+    required: true,
+  },
   date:{
     type: Date,
     default: Date.now,

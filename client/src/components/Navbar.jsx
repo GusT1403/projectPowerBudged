@@ -16,10 +16,10 @@ function Navbar() {
         (
         <>
         <li className="nav-item">
-        <Link to="/" className="nav-link">{ user.username }</Link>
+        <Link to="/workarea" className="nav-link">{ user.username }</Link>
         </li>
           <li className="nav-item">
-          <Link to="/add-olt" className="nav-link">Add Layout</Link>
+          <Link to="/profile" className="nav-link">Profile</Link>
         </li>
         <li className="nav-item">
           <Link to="/" onClick={() => { logout() }} className="nav-link">Logout</Link>

@@ -10,5 +10,11 @@ export const createTapSchema = z.object({
   tap: z.number({
     required_error: "Tap output attenuation is required"
   }),
+  x: z.number({
+    required_error: "Position in x axis is required"
+  }),
+  y: z.number({
+    required_error: "Position in y axis is required"
+  }),
   date: z.string().datetime().optional(),
 })

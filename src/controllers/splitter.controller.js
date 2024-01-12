@@ -12,10 +12,12 @@ export const getSplitters = async (req, res) => {
 }
 export const createSplitter = async (req, res) => {
   try {
-    const { configuration, out, date } = req.body
+    const { configuration, out, x, y, date } = req.body
     const newSplitter = new Splitter({
       configuration,
       out,
+      x,
+      y,
       date,
       user: req.user.id,
     })

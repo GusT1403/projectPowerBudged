@@ -12,10 +12,12 @@ export const getOnts = async (req, res) => {
 }
 export const createOnt = async (req, res) => {
   try {
-    const { sensitivity, overload, date } = req.body
+    const { sensitivity, overload, date, x, y } = req.body
     const newOnt = new Ont({
       sensitivity,
       overload,
+      x,
+      y,
       date,
       user: req.user.id,
     })

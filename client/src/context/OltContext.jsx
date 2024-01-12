@@ -12,7 +12,7 @@ export const useOlt = () => {
   return context
 }
 
-export function OltProvider({ children}) {
+export function OltProvider({ children }) {
   const [olt, setOlt] = useState([])
 
   const getOlts = async () => {
