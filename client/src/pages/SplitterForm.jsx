@@ -1,7 +1,8 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import "./nodesForm.css"
 import { useSplitter } from "../context/SplitterContext"
+import { useSplit } from "../context/SplitContext"
 import { useNavigate, useParams } from "react-router-dom"
 
 function SplitterForm() {
@@ -13,36 +14,48 @@ function SplitterForm() {
     clearErrors,
     formState: { errors },
   } = useForm()
-  const { deleteSplitter, getSplitter, updateSplitter } = useSplitter()
+  const { splitter, deleteSplitter, getSplitter, updateSplitter } = useSplitter()
+  const{ split, getSplits} = useSplit()
   const navigate = useNavigate()
   const params = useParams()
+  const [ selectedSplit, setSelectedSplit] = useState("")
 
   useEffect(() => {
     async function loadSplitter() {
       if (params.id) {
         const splitter = await getSplitter(params.id)
         setValue("configuration", splitter.configuration)
-        setValue("out", splitter.out)
+        setValue("loss", splitter.loss)
+        await getSplits()
       }
     }
     loadSplitter()
   }, [])
 
-  const onSubmit = handleSubmit(async (data) => {
-    const outValid = !isNaN(data.out)
+  const powerIn = parseFloat(splitter[0].powerIn)
 
-    if (!outValid) {
-      setError("out", { type: "manual", message: "Invalid number" })
+  const handleSelect = (event) => {
+    const selectedId = event.target.value
+    setSelectedSplit(event.target.value)
+    const selectedSplit = split.find(splits => splits._id === selectedId)
+    setValue("configuration", selectedSplit.configuration)
+    setValue("loss", selectedSplit.loss)
+  }
+
+  const onSubmit = handleSubmit(async (data) => {
+    const lossValid = !isNaN(data.loss)
+
+    if (!lossValid) {
+      setError("loss", { type: "manual", message: "Invalid number" })
       return
     }
 
-    clearErrors(["out"])
+    clearErrors(["loss"])
 
     const configuration = data.configuration
-    const out = parseFloat(data.out)
-
-    const newData = { configuration, out}
-
+    const loss = parseFloat(data.loss)
+    const out = powerIn - loss
+    const newData = { configuration, loss, out}
     updateSplitter(params.id, newData)
 
     navigate("/workarea")
@@ -56,31 +69,39 @@ function SplitterForm() {
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
         <form onSubmit={onSubmit}>
-          <h1>Splitter</h1>
+          <h1>Splitter (NAP)</h1>
           <div className="combo-box">
-            <select id="configuration" type='text' {...register("configuration")} autoFocus>
-              <option value="">Configuration</option>
-              <option value="1/2">1/2</option>
-              <option value="1/4">1/4</option>
-              <option value="1/8">1/8</option>
-              <option value="1/16">1/16</option>
-              <option value="1/32">1/32</option>
-              <option value="1/64">1/64</option>
+            <select id="configuration" value={selectedSplit} onChange={handleSelect} autoFocus>
+            <option value="">Select config</option>
+              {split.map((split) => (
+                <option key={split._id} value={split._id}>{split.configuration}  {split.description}</option>
+              ))}
             </select>
+          </div>
+          <div className='input-box'>
+            <label htmlFor='configuration'>Configuration</label>
+            <input
+              id='configuration'
+              type='text'
+              disabled
+              placeholder='SPLIT config [db]'
+              {...register("configuration")}
+              autoFocus
+            />
             {errors.configuration && (
               <span className='error'>{errors.configuration.message}</span>
             )}
           </div>
           <div className='input-box'>
-            <label htmlFor='out'>SPLITTER out [db]</label>
+            <label htmlFor='loss'>Splitter loss [dB]</label>
             <input
-              id='out'
+              id='loss'
               type='text'
               placeholder='decimal number separated by a dot'
-              {...register("out")}
+              {...register("loss")}
             />
-            {errors.out && (
-              <span className='error'>{errors.out.message}</span>
+            {errors.loss && (
+              <span className='error'>{errors.loss.message}</span>
             )}
           </div>
           <button className='btn'>Save</button>

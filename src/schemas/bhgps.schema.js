@@ -1,35 +1,20 @@
 import { z } from "zod"
 
 export const createBhgpsSchema = z.object({
-  identifier: z.string({
+  span: z.string({
     required_error: "Identifier is required"
   }),
-  attenuation: z.number({
-    required_error: "Backhaul attenuation is required"
+  bhtype: z.string({
+    required_error: "Backhaul GPS type is required"
   }),
-  cablesd: z.number({
-    required_error: "Cable storage distance is required"
+  lat: z.number({
+    required_error: "Latitude is required"
   }),
-  cablesr: z.number({
-    required_error: "Cable storage remaining is required"
+  lon: z.number({
+    required_error: "Longitude is required"
   }),
-  odistance: z.number({
-    required_error: "Optical distance is required"
-  }),
-  distance: z.number({
-    required_error: "Distance is required"
-  }),
-  olat: z.number({
-    required_error: "Distance is required"
-  }),
-  olon: z.number({
-    required_error: "Distance is required"
-  }),
-  elat: z.number({
-    required_error: "Distance is required"
-  }),
-  elon: z.number({
-    required_error: "Distance is required"
+  pointer: z.number({
+    required_error: "Coordinate pointer is required"
   }),
   date: z.string().datetime().optional(),
 })

@@ -19,6 +19,9 @@ export const createOLTSchema = z.object({
   powerOut: z.number({
     required_error: "Power out is required"
   }),
+  roll: z.number({
+    required_error: "Power out is required"
+  }),
   x: z.number({
     required_error: "Power out is required"
   }),

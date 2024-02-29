@@ -1,45 +1,25 @@
 import mongoose from "mongoose"
 
 const bhgpsSchema = new mongoose.Schema({
-  identifier: {
+  span: {
     type: String,
     required: true
   },
-  attenuation: {
+  bhtype: {
+    type: String,
+    required: true
+  },
+  lat: {
     type: Number,
     required: true
   },
-  cablesd: {
+  lon: {
     type: Number,
     required: true
   },
-  cablesr: {
+  pointer: {
     type: Number,
     required: true
-  },
-  odistance: {
-    type: Number,
-    required: true
-  },
-  distance: {
-    type: Number,
-    required: true
-  },
-  olat: {
-    type: Date,
-    default: Date.now,
-  },
-  olon: {
-    type: Date,
-    default: Date.now,
-  },
-  elat: {
-    type: Date,
-    default: Date.now,
-  },
-  elon: {
-    type: Date,
-    default: Date.now,
   },
   date: {
     type: Date,

@@ -1,0 +1,86 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+	align-items: center;
+	justify-content: start;
+  padding: 1rem;
+  height: fit-content;
+  min-height: 160px;
+  max-height: 160px;
+  min-width: 200px;
+  max-width: 200px;
+  width: fit-content;
+  background-color: #f2f2f249;
+  border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(30px);
+	text-align: left;
+	color: #595959;
+  margin: 10px;
+  position: relative;
+}
+
+.name {
+	font-size: 26px;
+  font-weight: 600;
+}
+
+.actions {
+	position: absolute;
+  bottom: 5px;
+  right: 5px;
+  display: flex;
+}
+
+.action-del{
+	background-color: #afafaf;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	line-height: 1;
+	transition: 0.45s ease;
+  font-weight: 300;
+  font-size: 12px;
+	height: 30px;
+	width: 40px;
+  margin: 2px;
+  padding: 10px;
+	border-radius: 30px;
+	border: 2px solid #8C8C8C;
+	color: #5f2a2a;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+.action-del:hover{
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.556);
+}
+
+.action-edit{
+	background-color: #afafaf;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	line-height: 1;
+	transition: 0.45s ease;
+  font-weight: 300;
+  font-size: 12px;
+	height: 30px;
+	width: 40px;
+  margin: 2px;
+  padding: 10px;
+	border-radius: 30px;
+	border: 2px solid #8C8C8C;
+	color: #f2f2f2;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+.action-edit:hover{
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.556);
+}
+.description{
+  font-size: 12px;
+  font-weight: 400;
+  max-width: 150px;
+}

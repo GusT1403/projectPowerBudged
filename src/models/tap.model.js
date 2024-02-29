@@ -5,11 +5,23 @@ const tapSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  powerIn: {
+    type: Number,
+    required: true,
+  },
   insert: {
     type: Number,
     required: true,
   },
   tap: {
+    type: Number,
+    required: true,
+  },
+  insertout: {
+    type: Number,
+    required: true,
+  },
+  tapout: {
     type: Number,
     required: true,
   },
@@ -34,4 +46,4 @@ const tapSchema = new mongoose.Schema({
   timestamps: true
 })
 
-export default mongoose.model("Tap", tapSchema)
+export default mongoose.model("Tap", tapSchema, "tap")

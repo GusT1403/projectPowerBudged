@@ -5,10 +5,10 @@ import { validateSchema } from "../middlewares/validateData.js"
 import { createSpanSchema } from "../schemas/span.schema.js"
 const router = Router()
 
-router.get('/span/:bhgps', authRequired, getSpans)
+router.get('/span', authRequired, getSpans)
 router.get('/span/:id', authRequired, getSpan)
-router.post('/span/:bhgps', authRequired, authRequired, validateSchema(createSpanSchema), createSpan)
+router.post('/span', authRequired, validateSchema(createSpanSchema), createSpan)
 router.delete('/span/:id', authRequired, deleteSpan)
-router.put('/span:id', authRequired, updateSpan)
+router.put('/span/:id', authRequired, updateSpan)
 
 export default router

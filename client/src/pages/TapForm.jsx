@@ -1,10 +1,11 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import "./nodesForm.css"
 import { useTap } from "../context/TapContext"
+import { useTaps } from "../context/TapsContext"
 import { useNavigate, useParams } from "react-router-dom"
 
-function OntForm() {
+function TapForm() {
   const {
     register,
     handleSubmit,
@@ -13,9 +14,11 @@ function OntForm() {
     clearErrors,
     formState: { errors },
   } = useForm()
-  const { deleteTap, getTap, updateTap } = useTap()
+  const { tap, deleteTap, getTap, updateTap } = useTap()
+  const { taps, getTapss } = useTaps()
   const navigate = useNavigate()
   const params = useParams()
+  const [ selectedTaps, setSelectedTaps ] = useState("")
 
   useEffect(() => {
     async function loadTap() {
@@ -24,10 +27,22 @@ function OntForm() {
         setValue("configuration", tap.configuration)
         setValue("insert", tap.insert)
         setValue("tap", tap.tap)
+        await getTapss()
       }
     }
     loadTap()
   }, [])
+
+  const powerIn = parseFloat(tap[0].powerIn)
+
+  const handleSelect = (event) => {
+    const selectedId = event.target.value
+    setSelectedTaps(event.target.value)
+    const selectedTaps = taps.find(tapss => tapss._id === selectedId )
+    setValue("configuration", selectedTaps.configuration)
+    setValue("insert", selectedTaps.insert)
+    setValue("tap", selectedTaps.tap)
+  }
 
   const onSubmit = handleSubmit(async (data) => {
     const insertValid = !isNaN(data.insert)
@@ -40,13 +55,13 @@ function OntForm() {
     }
 
     clearErrors(["insert", "tap"])
-
+    
     const configuration = data.configuration
     const insert = parseFloat(data.insert)
     const tap = parseFloat(data.tap)
-
-    const newData = { configuration, insert, tap }
-
+    const tapout = (powerIn - tap)
+    const insertout = (powerIn - insert)
+    const newData = { configuration, insert, tap, tapout, insertout }
     updateTap(params.id, newData)
 
     navigate("/workarea")
@@ -60,32 +75,36 @@ function OntForm() {
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
         <form onSubmit={onSubmit}>
-          <h1>Optical Network Terminal (TAP)</h1>
+          <h1>Unbalanced splitter (TAP)</h1>
           <div className="combo-box">
-            <select id="configuration" type='text' {...register("configuration")} autoFocus>
-              <option value="">Configuration</option>
-              <option value="01|99">01|99</option>
-              <option value="02|98">02|98</option>
-              <option value="05|95">05|95</option>
-              <option value="10|90">10|90</option>
-              <option value="15|85">15|85</option>
-              <option value="20|80">20|80</option>
-              <option value="25|75">25|75</option>
-              <option value="30|70">30|70</option>
-              <option value="35|65">35|65</option>
-              <option value="40|60">40|60</option>
-              <option value="45|55">45|55</option>
+            <select id="configuration" value={selectedTaps} onChange={handleSelect} autoFocus>
+            <option value="">Select config</option>
+              {taps.map((tapss) => (
+                <option key={tapss._id} value={tapss._id}>{tapss.configuration}  {tapss.description}</option>
+              ))}
             </select>
+          </div>
+          <div className='input-box'>
+            <label htmlFor='configuration'>Configuration</label>
+            <input
+              id='configuration'
+              type='text'
+              disabled
+              placeholder='TAP config [db]'
+              {...register("configuration")}
+              autoFocus
+            />
             {errors.configuration && (
               <span className='error'>{errors.configuration.message}</span>
             )}
           </div>
           <div className='input-box'>
-            <label htmlFor='insert'>ONT sensitivity [db]</label>
+            <label htmlFor='insert'>INSERT [db]</label>
             <input
               id='insert'
               type='text'
-              placeholder='decimal number separated by a dot'
+              disabled
+              placeholder='INSERT up insert loss [db]'
               {...register("insert")}
               autoFocus
             />
@@ -94,11 +113,12 @@ function OntForm() {
             )}
           </div>
           <div className='input-box'>
-            <label htmlFor='tap'>ONT overload [db]</label>
+            <label htmlFor='tap'>TAP [db]</label>
             <input
               id='tap'
               type='text'
-              placeholder='decimal number separated by a dot'
+              disabled
+              placeholder='TAP down insert loss [db]'
               {...register("tap")}
             />
             {errors.tap && (
@@ -117,4 +137,4 @@ function OntForm() {
   )
 }
 
-export default OntForm
+export default TapForm

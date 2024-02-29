@@ -5,7 +5,15 @@ const splitterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  powerIn:{
+    type: Number,
+    required: true,
+  },
   out:{
+    type: Number,
+    required: true,
+  },
+  loss:{
     type: Number,
     required: true,
   },

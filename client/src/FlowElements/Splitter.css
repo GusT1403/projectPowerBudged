@@ -9,8 +9,18 @@
 
 .splitter-node .splitter-title{
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: 12PX;
+  align-items: center;
+}
+
+.splitter-title h1{
+  font-size: 23px;
+}
+.splitter-title h6{
+  position: absolute;
+  font-size: 9px;
+  top:34%;
 }
 
 .splitter-node .splitter-data{

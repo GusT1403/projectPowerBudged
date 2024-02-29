@@ -16,7 +16,7 @@ function OntForm() {
   const {deleteOnt, getOnt, updateOnt } = useOnt()
   const navigate = useNavigate()
   const params = useParams()
-  console.log(params)
+
   useEffect(() => {
     async function loadOnt() {
       if (params.id) {

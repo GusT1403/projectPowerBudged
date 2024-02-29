@@ -3,7 +3,7 @@ import Bhgps from "../models/bhgps.model.js"
 export const getBhgpss = async (req, res) => {
   try {
     const bhgps = await Bhgps.find({
-      user: req.user.id
+      user: req.user.id,
     }).populate('user')
     res.json(bhgps)
   } catch (error) {
@@ -12,18 +12,13 @@ export const getBhgpss = async (req, res) => {
 }
 export const createBhgps = async (req, res) => {
   try {
-    const { identifier, attenuation, cablesd, cablesr, odistance, distance, olat, olon, elat, elon, date } = req.body
+    const { span, bhtype, lat, lon, pointer, date } = req.body
     const newBhgps = new Bhgps({
-      identifier,
-      attenuation,
-      cablesd,
-      cablesr,
-      odistance,
-      distance,
-      olat,
-      olon,
-      elat,
-      elon,
+      span,
+      bhtype,
+      lat,
+      lon,
+      pointer,
       date,
       user: req.user.id,
     })

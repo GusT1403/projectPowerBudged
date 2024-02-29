@@ -13,12 +13,13 @@ function RegisterPage() {
   const { signup, isAuthenticated, errors: registerErrors } = useAuth()
   const navigate = useNavigate()
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (isAuthenticated) navigate("/layouts")
-  }, [isAuthenticated])
+  }, [isAuthenticated]) */
 
   const onSubmit = handleSubmit(async (values) => {
     signup(values)
+    navigate('/login')
   })
 
   return (
@@ -67,10 +68,10 @@ function RegisterPage() {
         </form>
         <div className='register-link'>
           <p>
-            Already have an account?{" "}
-            <Link to='/login' className='a'>
+            Already have an account?
+            <Link to={'/login'} className='a'>
               Signin
-            </Link>{" "}
+            </Link>
           </p>
         </div>
       </div>

@@ -1,25 +1,49 @@
-import React, { memo } from "react"
+import React, { memo, useState } from "react"
 import { Handle, Position } from "reactflow"
 import { Link } from "react-router-dom"
 import "./Splitter.css"
 
 const SplitterNode = ({ data }) => {
+  const [showPopup, setShowPopup] = useState(false)
+  console.log("splitter", data)
   return (
     <div className='splitter-node'>
+      <div className="info-circle" onMouseEnter={() => setShowPopup(true)} onMouseLeave={() => setShowPopup(false)}>
+        i
+      </div>
+      {showPopup && (
+        <div className="popup">
+        <div className="info-row">
+          <p className="p1">Power In:</p>
+          <p className="p2">{data.powerIn} dbm</p>
+        </div>
+        <div className="info-row">
+          <p className="p1">Power Out:</p>
+          <p className="p2">{data.out} dbm</p>
+        </div>
+        <div className="info-row">
+          <p className="p1">Configuration:</p>
+          <p className="p2">{data.configuration}</p>
+        </div>
+      </div>
+      )}
       <Handle
+        id={`${data._id}-splitter`}
         className='inHandle'
         position={Position.Left}
         type='target'
-        isConnectable={{ isConnectable: true }}
+        isConnectable={1}
       />
       <Handle
+      id={`${data._id}-splitter`}
         className='outHandle'
         position={Position.Right}
         type='source'
-        isConnectable={{ isConnectable: true }}
+        isConnectable={true}
       />
       <div className='splitter-title'>
-        <h1>SPLITTER</h1>
+        <h1>NAP</h1>
+        <h6>splitter</h6>
       </div>
       <div className='splitter-data'>
         {" "}

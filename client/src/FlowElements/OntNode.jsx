@@ -7,10 +7,11 @@ const OntNode = ({ data }) => {
   return (
     <div className='ont-node'>
       <Handle
+        id={`${data._id}-target`}
         className='customHandle'
         position={Position.Left}
         type='target'
-        isConnectable={{ isConnectable: true }}
+        isConnectable={true}
       />
       <div className='ont-title'>
         <h1>ONT</h1>

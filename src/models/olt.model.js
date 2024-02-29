@@ -25,6 +25,10 @@ const oltSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  roll: {
+    type: Number,
+    required: true,
+  },
   x: {
     type: Number,
     required: true,

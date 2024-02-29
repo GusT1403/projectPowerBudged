@@ -12,11 +12,14 @@ export const getTaps = async (req, res) => {
 }
 export const createTap = async (req, res) => {
   try {
-    const { configuration, insert, tap, x, y, date } = req.body
+    const { configuration, powerIn, insert, tap, insertout, tapout, x, y, date } = req.body
     const newTap = new Tap({
       configuration,
+      powerIn,
       insert,
       tap,
+      insertout,
+      tapout,
       x,
       y,
       date,
@@ -25,7 +28,7 @@ export const createTap = async (req, res) => {
     const savedTap = await newTap.save()
     res.json(savedTap)
   } catch (error) {
-    return res.status(500).json({ message: 'something wewent wrong' })
+    return res.status(500).json({ message: 'something went wrong' })
   }
 }
 export const getTap = async (req, res) => {

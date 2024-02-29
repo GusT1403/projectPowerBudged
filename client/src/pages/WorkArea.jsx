@@ -1,7 +1,6 @@
-import React, { useState, useRef, useCallback, useEffect } from "react"
+import React, { useState, useRef, useCallback, useEffect, useMemo } from "react"
 import ReactFlow, {
   ReactFlowProvider,
-  addEdge,
   useNodesState,
   useEdgesState,
   Controls,
@@ -9,6 +8,7 @@ import ReactFlow, {
   BackgroundVariant,
 } from "reactflow"
 import { useOlt } from "../context/OltContext"
+import { useBackhaul } from "../context/BackhaulContext"
 import { useOnt } from "../context/OntContext"
 import { useSplitter } from "../context/SplitterContext"
 import { useTap } from "../context/TapContext"
@@ -18,32 +18,37 @@ import OntNode from "../FlowElements/OntNode"
 import SplitterNode from "../FlowElements/SplitterNode"
 import TapNode from "../FlowElements/TapNode"
 import Sidebar from "../FlowElements/Sidebar"
+import BackhaulEdge from "../FlowElements/BackhaulEdge"
+import ConnectionLine from "../FlowElements/ConnectionLine"
 import "../FlowElements/Flow.css"
-
-const nodeTypes = {
-  oltnode: OltNode,
-  ontnode: OntNode,
-  splitternode: SplitterNode,
-  tapnode: TapNode,
-}
-const edgeTypes = {}
-
-let id = 0
-const getId = () => `dndnode_${id++}`
 
 const proOptions = { hideAttribution: true }
 const initialViewport = { x: 500, y: 150, zoom: 1.2 }
 
 const WorkArea = () => {
+
+  const nodeTypes = useMemo(() => ({
+    oltnode: OltNode,
+    ontnode: OntNode,
+    splitternode: SplitterNode,
+    tapnode: TapNode,
+  }), []);
+
+  const edgeTypes = useMemo(() => ({
+    backhaulEdge: BackhaulEdge,
+  }), [])
+
   const reactFlowWrapper = useRef(null)
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
 
-  const { createOlt, getOlts, olt } = useOlt()
-  const { createOnt, getOnts, ont } = useOnt()
-  const { createSplitter, getSplitters, splitter } = useSplitter()
-  const { createTap, getTaps, tap } = useTap()
+  const { updateOlt, createOlt, getOlts, olt } = useOlt()
+  const { updateOnt, createOnt, getOnts, ont } = useOnt()
+  const { updateSplitter, createSplitter, getSplitters, splitter } = useSplitter()
+  const { updateTap, createTap, getTaps, tap } = useTap()
+
+  const { createBackhaul, getBackhauls, backhaul } = useBackhaul()
 
   const [hasLoaded, setHasLoaded] = useState(false)
 
@@ -53,10 +58,86 @@ const WorkArea = () => {
       await getOnts()
       await getSplitters()
       await getTaps()
+      await getBackhauls()
       setHasLoaded(true)
     }
     fetchData()
   }, [])
+
+  useEffect(() => {
+  const allDependencies = [hasLoaded, olt, ont, splitter, tap, backhaul];
+  const hasAnyDependencyChanged = allDependencies.some((dependency, index) => {
+    return (
+      index === 0 ||
+      !Object.is(dependency, allDependencies[index - 1])
+    )
+  })
+
+  if (hasAnyDependencyChanged) {
+    const updatedNodes = [];
+
+    if (olt.length > 0) {
+      const oltNode = {
+        id: olt[0]._id,
+        type: "oltnode",
+        position: { x: parseInt(olt[0].x), y: parseInt(olt[0].y) },
+        data: olt[0],
+      }
+      updatedNodes.push(oltNode);
+    }
+
+    if (ont.length > 0) {
+      const ontNodes = ont.map((item) => {
+        return {
+          id: item._id,
+          type: "ontnode",
+          position: { x: parseInt(item.x), y: parseInt(item.y) },
+          data: item,
+        }
+      })
+      updatedNodes.push(...ontNodes);
+    }
+
+    if (splitter.length > 0) {
+      const splitterNodes = splitter.map((item) => {
+        return {
+          id: item._id,
+          type: "splitternode",
+          position: { x: parseInt(item.x), y: parseInt(item.y) },
+          data: item,
+        }
+      })
+      updatedNodes.push(...splitterNodes);
+    }
+
+    if (tap.length > 0) {
+      const tapNodes = tap.map((item) => {
+        return {
+          id: item._id,
+          type: "tapnode",
+          position: { x: parseInt(item.x), y: parseInt(item.y) },
+          data: item,
+        }
+      })
+      updatedNodes.push(...tapNodes)
+    }
+
+    const updatedEdges = backhaul.map((item) => {
+      return {
+        id: item._id,
+        source: item.source,
+        target: item.target,
+        sourceHandle: item.sourceHandle,
+        targetHandle: item.targetHandle,
+        type: "backhaulEdge",
+        animated: true,
+        data: item,
+      }
+    })
+    setNodes(updatedNodes)
+    setEdges(updatedEdges)
+  }
+}, [hasLoaded, olt, ont, splitter, tap, backhaul])
 
   useEffect(() => {
     if (hasLoaded && olt.length === 0) {
@@ -65,6 +146,7 @@ const WorkArea = () => {
       const coupler = 0
       const fusion = 0
       const maxDistance = 0
+      const roll = 0
       const x = -200
       const y = 200
       const powerOut = 0
@@ -75,6 +157,7 @@ const WorkArea = () => {
         fusion,
         maxDistance,
         powerOut,
+        roll,
         x,
         y,
       }
@@ -94,6 +177,25 @@ const WorkArea = () => {
       setNodes((nds) => nds.concat(oltNode))
     }
   }, [hasLoaded, olt])
+
+  useEffect(() => {
+      if (hasLoaded && backhaul.length > 0) {
+      const backhaulEdges = backhaul.map((item) => {
+        return {
+          id: item._id,
+          source: item.source,
+          target: item.target,
+          sourceHandle: item.sourceHandle,
+          targetHandle: item.targetHandle,
+          type: "backhaulEdge",
+          animated: true,
+          data: item,
+        }
+      })
+      setEdges(backhaulEdges)
+    }
+    
+  }, [hasLoaded, backhaul])
 
   useEffect(() => {
     if (hasLoaded && ont.length > 0) {
@@ -137,26 +239,32 @@ const WorkArea = () => {
     }
   }, [hasLoaded, tap])
 
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    []
-  )
-
   const onDragOver = useCallback((event) => {
     event.preventDefault()
     event.dataTransfer.dropEffect = "move"
   }, [])
 
-  const onDrop = useCallback(
-    (event) => {
+  const onDrop = useCallback((event) => {
       event.preventDefault()
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
-      const type = event.dataTransfer.getData("application/reactflow")
+       const type = event.dataTransfer.getData("application/reactflow")
       const position = reactFlowInstance.project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
-      })
+      }) 
+
+      /*const transferData = JSON.parse(event.dataTransfer.getData("application/reactflow"))
+      const { type, data } = transferData
+
+      if (!type) {
+        return
+      }
+      const position = reactFlowInstance.project({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      })*/
+
       if (typeof type === "undefined" || !type) {
         return
       }
@@ -174,10 +282,12 @@ const WorkArea = () => {
       }
       if (type === "splitter") {
         const configuration = "1/2"
+        const powerIn = 0
         const out = 0
+        const loss = 0
         const x = position.x
         const y = position.y
-        const newData = { configuration, out, x, y }
+        const newData = { configuration, powerIn, out, loss, x, y }
         const createData = async () => {
           await createSplitter(newData)
           await getSplitters()
@@ -188,9 +298,12 @@ const WorkArea = () => {
         const configuration = "1|99"
         const insert = 0
         const tap = 0
+        const insertout = 0
+        const tapout = 0
         const x = position.x
         const y = position.y
-        const newData = { configuration, insert, tap, x, y }
+        const powerIn = 0
+        const newData = { configuration, insert, tap, insertout, tapout, x, y, powerIn }
         const createData = async () => {
           await createTap(newData)
           await getTaps()
@@ -200,6 +313,78 @@ const WorkArea = () => {
     },
     [reactFlowInstance]
   )
+
+  const onNodeDragStop = useCallback((event, node) => {
+    event.preventDefault()
+    if(node.type === 'oltnode'){
+      const x = node.position.x
+      const y = node.position.y
+      const newData = {x, y}
+      const updateData = async () => {
+        await updateOlt(node.id, newData)
+      }
+      updateData()
+    }
+    if(node.type === 'ontnode'){
+      const x = node.position.x
+      const y = node.position.y
+      const newData = {x, y}
+      const updateData = async () => {
+        await updateOnt(node.id, newData)
+      }
+      updateData()
+    }
+    if(node.type === 'splitternode'){
+      const x = node.position.x
+      const y = node.position.y
+      const newData = {x, y}
+      const updateData = async () => {
+        await updateSplitter(node.id, newData)
+      }
+      updateData()
+    }
+    if(node.type === 'tapnode'){
+      const x = node.position.x
+      const y = node.position.y
+      const newData = {x, y}
+      const updateData = async () => {
+        await updateTap(node.id, newData)
+      }
+      updateData()
+    }
+    
+  }, [])
+
+    const onConnect = (params) => {
+      const { source, target, sourceHandle, targetHandle } = params
+      console.log(params)
+        const attenuation = 0
+        const cablesd = 0
+        const cablesr = 0
+        const odistance = 0
+        const distance = 0
+        const powerIn = 0
+        const powerOut = 0
+        const crossarms = 0
+        target
+        source
+        sourceHandle
+        targetHandle
+        const newData = { attenuation, cablesd, cablesr, crossarms, odistance, distance, powerIn, powerOut, target, source, sourceHandle, targetHandle }
+
+        const edgeExists = edges.some(edge => edge.source === source && edge.target === target)
+
+        if (!edgeExists) {
+          setEdges((prevEdges) => [...prevEdges, newData])
+          const createData = async () => {
+            await createBackhaul(newData)
+            await getBackhauls()
+          };
+          createData()
+        } else {
+          console.log("El edge ya existe, no se añadirá de nuevo")
+        }
+    }
 
   return (
     <div className='dndflow'>
@@ -211,6 +396,8 @@ const WorkArea = () => {
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
+            onNodeDragStop={onNodeDragStop}
+            connectionLineComponent={ConnectionLine}
             onConnect={onConnect}
             onInit={setReactFlowInstance}
             onDrop={onDrop}
@@ -222,6 +409,7 @@ const WorkArea = () => {
               borderRadius: "12px",
             }}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             defaultViewport={initialViewport}
             proOptions={proOptions}
           >

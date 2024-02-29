@@ -12,14 +12,20 @@ export const getBackhauls = async (req, res) => {
 }
 export const createBackhaul = async (req, res) => {
   try {
-    const { identifier, attenuation, cablesd, cablesr, odistance, distance, date } = req.body
+    const { identifier, attenuation, cablesd, cablesr, crossarms, odistance, distance, target, source, targetHandle, sourceHandle, powerIn, powerOut, date } = req.body
     const newBackhaul = new Backhaul({
-      identifier,
       attenuation,
       cablesd,
       cablesr,
+      crossarms,
       odistance,
       distance,
+      target,
+      source,
+      targetHandle,
+      sourceHandle,
+      powerIn,
+      powerOut,
       date,
       user: req.user.id,
     })

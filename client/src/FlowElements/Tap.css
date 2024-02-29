@@ -5,6 +5,7 @@
   padding: 4PX 10px 10PX 10px;
   max-width: 140px;
   max-height: 95px;
+  z-index: -1;
 }
 
 .tap-node .tap-title{
@@ -44,11 +45,65 @@
   height: 8px;
   width: 8px;
 }
+
+.inHandle:hover{
+  cursor: default;
+}
+
 .tap-node .insertHandle{
   height: 8px;
   width: 8px;
 }
+
+.insertHandle{
+  cursor: cell;
+}
+
 .tap-node .tapHandle{
   height: 8px;
   width: 8px;
+}
+
+.poptap {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 90%;
+  left: 85%;
+  transform: translateX(-50%);
+  width: 80px;
+  background-color: #404040d5;
+  color: #F2F2F2;
+  border: none;
+  border-radius: 5px;
+  padding: 2px  5px 2px;
+  z-index: 100;
+  display: none;
+  font-size: 8px;
+}
+.tapHandle:hover + .poptap {
+  display: block;
+}
+
+.popinsert {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 58%;
+  left: 128%;
+  transform: translateX(-50%);
+  width: 80px;
+  background-color: #404040d5;
+  color: #F2F2F2;
+  border: none;
+  border-radius: 5px;
+  padding: 2px  5px 2px;
+  z-index: 100;
+  display: none;
+  font-size: 8px;
+}
+.insertHandle:hover + .popinsert {
+  display: block;
 }

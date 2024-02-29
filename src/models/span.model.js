@@ -1,17 +1,17 @@
 import mongoose from "mongoose"
+import { number } from "zod"
 
 const spanSchema = new mongoose.Schema({
-  lat: {
-    type: Number,
+  name: {
+    type: String,
     required: true,
   },
-  lon: {
-    type: Number,
+  description: {
+    type: String,
     required: true,
   },
-  bhgps: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Bhgps',
+  distance: {
+    type: Number,
     required: true,
   },
   date: {

@@ -3,8 +3,8 @@ import Span from "../models/span.model.js"
 export const getSpans = async (req, res) => {
   try {
     const spans = await Span.find({
-      bhgps: req.params.bhgps
-    })
+      user: req.user.id
+    }).populate('user')
     res.json(spans)
   } catch (error) {
     return res.status(500).json({ message: 'something wewent wrong' })
@@ -12,11 +12,11 @@ export const getSpans = async (req, res) => {
 }
 export const createSpan = async (req, res) => {
   try {
-    const { lat, lon, date} = req.body
+    const { name, description, distance, date} = req.body
     const newSpan = new Span({
-      lat,
-      lon,
-      bhgps: req.params.bhgps,
+      name,
+      description,
+      distance,
       date,
       user: req.user.id,
     })

@@ -6,9 +6,12 @@
 }
 
 .dndflow aside {
+  display: flex;
+  display: table-column;
+  align-items: center;
   width: 12%;
   min-width: 200px;
-  max-width: 200px;
+  max-width: 150px;
   border: 10px solid rgba(255, 255, 255, .2);
   padding: 15px 10px;
   font-size: 12px;
@@ -21,8 +24,21 @@
 
 .dndflow aside .description {
   margin-bottom: 10px;
+  padding: 0 5px 0 5px;
+  font-weight: normal;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.dndflow aside .description2 {
+  margin-top: 15px;
+  margin-bottom: 3px;
   padding: 0 20px 0 20px;
   font-weight: normal;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .dndflow .dndnode {
@@ -32,31 +48,66 @@
   border-radius: 12px;
   padding: 4PX 10px 10PX 10px;
   margin: 20px 10px 10px 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: grab;
   font-size: 16px;
   box-shadow: 2px 2px 6px 0.5px rgba(0, 0, 0, 0.329);
+  z-index: 100;
 }
 
-.dndflow .dndnode .onticon{
-  width: 70%;
+.dndflow .dndlink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: #afafaf;
+  border: 2px solid #404040;
+  border-radius: 12px;
+  padding: 10PX 10px 10PX 10px;
+  margin: 5px 10px 10px 10px;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 2px 2px 6px 0.5px rgba(0, 0, 0, 0.329);
+}
+
+.dndlink .node-link{
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.dndnode .node-title{
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+.dndnode .node-icon{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  z-index: 0;
+}
+
+.node-icon .onticon{
+  
+  width: 65%;
   height: auto;
   margin-top: 5px;
 }
 
-.dndflow .dndnode .spliticon{
-  width: 50%;
+.spliticon{
+  position: relative;
+  width: 55%;
+  height: auto;
+  padding-top: 1px;
+}
+
+.tapicon{
+  width: 52%;
   height: auto;
   margin-top: 5px;
 }
 
-.dndflow .dndnode .tapicon{
-  width: 50%;
-  height: auto;
-  margin-top: 5px;
-}
 
 .dndflow .oltnode {
   height: 100px;
@@ -88,6 +139,194 @@
 
   .dndflow aside {
     width: 12%;
-    max-width: 250px;
+    max-width: 200px;
   }
 }
+
+.ont {
+      width: 50px;
+      height: 40px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 30px;
+    }
+
+    .ont-body {
+      width: 80%;
+      height: 80%;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ont-display {
+      width: 60%;
+      height: 40%;
+      background-color: #333;
+      border-radius: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .ont-connector {
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      position: absolute;
+      top: 50%;
+      left: -20px;
+      transform: translateY(-50%);
+    }
+
+    .ont-connector::before {
+      content: "";
+      width: 20px;
+      height: 5px;
+      background-color: #333;
+      position: absolute;
+      top: 50%;
+      left: -20px;
+      transform: translateY(-50%);
+    }
+
+    .splitter {
+      width: 45px;
+      height: 32px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .splitter-body {
+      width: 80%;
+      height: 70%;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .splitter-connector {
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      position: absolute;
+    }
+
+    .splitter-connector::before {
+      content: "";
+      width: 20px;
+      height: 5px;
+      background-color: #333;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .splitter-connector.input {
+      left: -20px;
+    }
+
+    .splitter-connector.output {
+      right: -20px;
+    }
+
+    .splitter-connector.input::before {
+      left: -20px;
+    }
+
+    .splitter-connector.output::before {
+      right: -20px;
+    }
+
+    .tap {
+      width: 45px; 
+      height: 32px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .tap-body {
+      width: 80%;
+      height: 70%;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .tap-connector {
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      position: absolute;
+    }
+    
+    .tap-connector::before {
+      content: "";
+      width: 20px;
+      height: 5px;
+      background-color: #333;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .tap-connector.input {
+      left: -50%;
+    }
+    
+    .tap-connector.input::before {
+      left: -20px;
+    }
+    
+    .tap-connector.output {
+      right: -20px; 
+    }
+    
+    .tap-connector.output::before {
+      width: 20px;
+      height: 5px;
+      left: 8px; 
+      top: 5px;
+    }
+
+    .tap-connector.output-2 {
+      bottom: -18px; 
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .tap-connector.output-2::before {
+      width: 4px;
+      height: 15px;
+      left: 2.5px; 
+      top: 10px;
+    }

@@ -1,14 +1,15 @@
 .olt-node{
+  position: relative;
   background-color: #afafaf;
   border: 2px solid #F2F2F2;
   border-radius: 5px;
-  padding: 4PX 10px 10PX 10px;
+  padding: 4px 10px 10PX 10px;
 }
 
 .olt-node .olt-title{
   display: flex;
   justify-content: center;
-  font-size: 12PX;
+  font-size: 12px;
 }
 
 .olt-node .olt-data{
@@ -40,4 +41,66 @@
 .olt-node .customHandle{
   height: 8px;
   width: 8px;
+}
+
+.info-circle {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 12px;
+  height: 12px;
+  background-color: #404040; /* Color de fondo azul */
+  color: white; /* Color de texto blanco */
+  border-radius: 50%; /* Hacerlo circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.popup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: -75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  background-color: #404040d5;
+  color: #F2F2F2;
+  border: 2px solid #404040;
+  border-radius: 5px;
+  padding: 5px  5px 5px;
+  z-index: 100;
+  display: none;
+  font-size: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.info-row .p1 {
+  text-align: left;
+  margin-right: auto;
+  font-weight: 500;
+}
+
+.info-row .p2 {
+  text-align: right;
+  margin-left: auto;
+  font-weight: 300;
+}
+
+.item {
+  display: flex;
+}
+
+.info-circle:hover + .popup {
+  display: block;
 }
