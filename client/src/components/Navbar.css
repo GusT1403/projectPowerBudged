@@ -1,10 +1,7 @@
 .navheader {
-  background-color: #f2f2f254;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
-  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: #494E68;
   backdrop-filter: blur(30px);
-  color: #404040;
+  color: #E7E5E4;
   border-radius: 0 0 25px 25px ;
   min-width: 500px; 
   min-height: fit-content;
@@ -39,9 +36,9 @@
 .nav-link {
   text-emphasis: uppercase;
   text-decoration: none;
-  color: #404040;
+  color: #D7D8C6;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .active {
@@ -52,40 +49,40 @@
 .nav-item:nth-child(1):hover ~ .active {
   position: absolute;
   bottom: 0.11rem;
-  height: 2px;
+  height: 1px;
   width: 10rem;
   background-color: #ffff;
   transition: 0.25s;
-  box-shadow:0 0 10px rgba(255, 255, 255, 0.841);
+  box-shadow:0 0 10px 0.5px #D7D5D3;
 }
 .nav-item:nth-child(2):hover ~ .active {
   transform: translateX(10rem);
   position: absolute;
   bottom: 0.11rem;
-  height: 2px;
+  height: 1px;
   width: 10rem;
   background-color: #ffff;
   transition: 0.25s;
-  box-shadow:0 0 10px rgba(255, 255, 255, 0.841);
+  box-shadow:0 0 10px 0.5px #D7D5D3;
 }
 .nav-item:nth-child(3):hover ~ .active {
   transform: translateX(20rem);
   position: absolute;
   bottom: 0.11rem;
-  height: 2px;
+  height: 1px;
   width: 10rem;
   background-color: #ffff;
   transition: 0.25s;
-  box-shadow:0 0 10px rgba(255, 255, 255, 0.841);
+  box-shadow:0 0 10px 0.5px #D7D5D3;
 }
 .nav-item:nth-child(4):hover ~ .active {
   transform: translateX(30rem);
   position: absolute;
   bottom: 0.11rem;
-  height: 2px;
+  height: 1px;
   width: 10rem;
   background-color: #ffff;
   transition: 0.25s;
-  box-shadow:0 0 10px rgba(255, 255, 255, 0.841);
+  box-shadow:0 0 10px 0.5px #D7D5D3;
 }
 

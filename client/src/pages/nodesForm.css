@@ -12,10 +12,9 @@
   justify-content: center;
   width: 22vw;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, .2);
   backdrop-filter: blur(30px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-  color: #595959;
+  box-shadow: 0 0 10px #807A6E;
+  color: #494E68;
   border-radius: 15px;
   padding: 30px;
 }
@@ -52,24 +51,29 @@
   outline: none;
   border: 1px solid rgba(255, 255, 255, 0.3);
   font-size: 16px;
-  color: #404040;
+  color: #071A40;
   padding-left: 10px;
   transition: box-shadow 0.3s ease-in-out;
   border-radius: 15px;
   position: relative;
 }
 
-.input-box {
+.combo-box select:focus {
+  border: 1px solid #fff;
+  box-shadow: 0px 0px 15px #E7E5E4;
+}
+
+.input-box2 {
   width: 100%;
   height: 50px;
   margin-bottom: 25px;
   position: relative;
 }
 
-.input-box label {
+.input-box2 label {
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.803);
+  color: #E7E5E4;
   pointer-events: none;
   transition: top 0.3s ease-in-out, color 0.3s ease-in-out;
   top: -12px;
@@ -77,30 +81,31 @@
   position: absolute;
 }
 
-.input-box input {
+.input-box2 input {
   width: 100%;
   height: 80%;
   background: transparent;
   border: none;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid #D7D5D3;
+  font-weight: 600;
   font-size: 16px;
-  color: #404040;
+  color: #494E68;
   padding: 15px;
   transition: box-shadow 0.3s ease-in-out;
   border-radius: 15px;
   position: relative;
 }
 
-.input-box textarea {
+.input-box2 textarea {
   width: 100%;
   height: 150%;
   background: transparent;
   border: none;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid #D7D5D3;
   font-size: 16px;
-  color: #404040;
+  color: #494E68;
   padding: 15px;
   transition: box-shadow 0.3s ease-in-out;
   border-radius: 15px;
@@ -109,29 +114,30 @@
   margin-top: 10px;
 }
 
-.input-box input:focus {
-  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
+.input-box2 input:focus {
+  border: 1px solid #fff;
+  box-shadow: 0px 0px 15px #E7E5E4;
 }
 
-.input-box input::placeholder {
+.input-box2 input::placeholder {
   font-size: 13px;
-  color: #e0e0e0d4;
+  color: #807A6E;
 }
 
-.input-box input:focus::placeholder {
+.input-box2 input:focus::placeholder {
   color: transparent;
 }
 
-.input-box textarea:focus {
+.input-box2 textarea:focus {
   box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
 }
 
-.input-box textarea::placeholder {
+.input-box2 textarea::placeholder {
   font-size: 13px;
   color: #e0e0e0d4;
 }
 
-.input-box textarea:focus::placeholder {
+.input-box2 textarea:focus::placeholder {
   color: transparent;
 }
 
@@ -156,24 +162,25 @@
   color: #ff6868;
 }
 
-button.btn {
+button.btn2 {
   width: 100%;
   height: 40px;
-  background: #F2F2F2;
+  background: #E7E5E4;
   border: none;
   outline: none;
   border-radius: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  color: #404040;
+  color: #494E68;
   font-size: 16px;
   font-weight: 600;
   margin-top: 20px;
   transition: background-color 0.3s ease-in-out;
 }
 
-button.btn:hover {
-  background-color: #E0E0E0;
+button.btn2:hover {
+  box-shadow: 2px 2px 25px 0.5px #E7E5E4;
+  border: 1px solid #fff;
 }
 
 .error {
@@ -182,6 +189,30 @@ button.btn:hover {
 }
 
 button.btn:disabled {
-  background-color: #CCCCCC;
+  background-color: #E7E5E4;
   cursor: not-allowed;
+}
+
+.close {
+    position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 21px;
+  height: 21px;
+  border: none;
+  border-radius: 50%;
+  background-color: #494E68;
+  color: #E7E5E4;
+  cursor: pointer;
+  z-index: 5;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    background-color: #b01902;
+    color: #E7E5E4;
+  }
 }

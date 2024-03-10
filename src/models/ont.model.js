@@ -9,6 +9,10 @@ const ontSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  powerIn: {
+    type: Number,
+    required: true,
+  },
   x: {
     type: Number,
     required: true,

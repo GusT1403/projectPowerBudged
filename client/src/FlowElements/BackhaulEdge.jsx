@@ -21,7 +21,7 @@ const BackhaulEdge = (props) => {
     source,
     style = {
       strokeWidth: 2,
-      stroke: 'white',
+      stroke: '#E7E5E4',
     },
     markerEnd,
   } = props
@@ -51,23 +51,20 @@ const BackhaulEdge = (props) => {
     if(inpuInfo[1] === 'olt' && oltReady){
       calculateOltData(olt[0], data)
     }
-    else if(inpuInfo === 'splitter' && oltReady){
+    else if(inpuInfo[1] === 'splitter' && oltReady){
       const loadSplitter = async () => {
         const splitter = await getSplitter(inpuInfo[0])
-        const powerIn = {powerIn: splitter.powerOut}
-        setPower(splitter.powerOut)
-        updateBackhaul(data._id, powerIn)
+        console.log(splitter)
+        calculateSplitterData(olt[0],splitter)
       }
       loadSplitter()
     }
     else if(inpuInfo[1] === 'insert'|| inpuInfo[1] === 'tap' && oltReady){
       const loadTap = async () => {
-        console.log("TAP", inpuInfo)
         const tap = await getTap(inpuInfo[0])
         calculateTapData(olt[0],tap)
       }
       loadTap()
-      
     }
   }, [oltReady])
 
@@ -82,13 +79,11 @@ const BackhaulEdge = (props) => {
     let odistance = 0
     let fusions = 0
     let powerOut = 0
-    if(distance === 0 ){
-      powerOut = (olt.powerOut - olt.fusion)
-    }
+    let powerIn = olt.powerOut
+    if(distance === 0 ){powerOut = (olt.powerOut - olt.fusion)    }
     if(cablesd != 0 && roll != 0){crossarms = Math.ceil((distance/1000) / (cablesd / roll))}
     if(crossarms != 0 && cablesr != 0 && roll != 0) {odistance = (crossarms * (cablesr)) + distance}
     if(odistance != 0 && roll != 0) {fusions = (Math.ceil(odistance / roll)) - 1}
-    const powerIn = olt.powerOut
     if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusions !=0 && fusion !=0){powerOut = (powerIn -(attenuation * (odistance/1000)) - (fusions * fusion))- fusion}
     const newData = { crossarms, odistance, powerIn, powerOut }
     const newD = { crossarms, odistance, powerIn, fusions, powerOut }
@@ -112,9 +107,51 @@ const BackhaulEdge = (props) => {
     }
   }
 
+  const calculateSplitterData = (olt, splitter) => {
+    const cablesd = parseFloat(data.cablesd)
+    const cablesr = parseFloat(data.cablesr)
+    const distance = parseFloat(data.distance)
+    const roll = parseFloat(olt.roll)
+    const attenuation = parseFloat(data.attenuation)
+    const fusion = parseFloat(olt.fusion)
+    let crossarms = 0
+    let odistance = 0
+    let fusions = 0
+    let powerOut = 0
+    const powerIn = splitter.out
+    if(distance === 0 ){powerOut = (splitter.out - olt.fusion)}
+    if(cablesd != 0 && roll != 0){crossarms = Math.ceil((distance/1000) / (cablesd / roll))}
+    if(crossarms != 0 && cablesr != 0 && roll != 0) {odistance = (crossarms * (cablesr)) + distance} else {
+      odistance = distance
+    }
+    if(odistance != 0 && roll != 0) {fusions = (Math.ceil(odistance / roll)) - 1} else {
+      fusions = (Math.ceil(odistance / roll)) - 1
+    }
+    if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusions !=0 && fusion !=0){
+      powerOut = (powerIn -(attenuation * (odistance/1000)) - (fusions * fusion))- fusion}
+    const newData = { crossarms, odistance, powerIn, powerOut }
+    const newD = { crossarms, odistance, powerIn, fusions, powerOut }
+    setNewdat(newD)
+    updateBackhaul(data._id, newData)
+    if(outputInfo[1] === 'tap'){
+      const load = async () => {
+      await updateTap(outputInfo[0], {powerIn: powerOut})
+      }
+      load()
+    } if(outputInfo[1] === 'splitter'){
+      const load = async () => {
+      await updateSplitter(outputInfo[0], {powerIn: powerOut})
+      }
+      load()
+    } if(outputInfo[1] === 'ont'){
+      const load = async () => {
+      await updateOnt(outputInfo[0], {powerIn: powerOut})
+      }
+      load()
+    }
+  }
+
   const calculateTapData = (olt, tap) => {
-    console.log("olt", olt)
-    console.log("tap", tap)
     const cablesd = parseFloat(data.cablesd)
     const cablesr = parseFloat(data.cablesr)
     const distance = parseFloat(data.distance)
@@ -132,15 +169,17 @@ const BackhaulEdge = (props) => {
       powerIn = tap.insertout
     }
     if(cablesd != 0 && roll != 0){crossarms = Math.ceil((distance/1000) / (cablesd / roll))}
-    if(crossarms != 0 && cablesr != 0 && roll != 0) {odistance = (crossarms * (cablesr)) + distance}
-    if(odistance != 0 && roll != 0) {fusions = (Math.ceil(odistance / roll)) - 1}
+    if(crossarms != 0 && cablesr != 0 && roll != 0) {odistance = (crossarms * (cablesr)) + distance}  else {
+      odistance = distance
+    }
+    if(odistance != 0 && roll != 0) {fusions = (Math.ceil(odistance / roll)) - 1}  else {
+      fusions = (Math.ceil(odistance / roll)) - 1
+    }
     if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusions !=0 && fusion !=0){powerOut = (powerIn -(attenuation * (odistance/1000)) - (fusions * fusion))- fusion}
     const newData = { crossarms, odistance, powerIn, powerOut }
     const newD = { crossarms, odistance, powerIn, fusions, powerOut }
     setNewdat(newD)
     updateBackhaul(data._id, newData)
-    console.log(outputInfo[0])
-    console.log("tap", powerOut)
     if(outputInfo[1] === 'tap'){
       const load = async () => {
       await updateTap(outputInfo[0], {powerIn: powerOut})
@@ -180,10 +219,11 @@ const BackhaulEdge = (props) => {
         <div
           style={{
             position: 'absolute',
-            background: '#afafaf',
+            background: '#494E68',
+            border: '2px solid #D7D5D3',
+            color:'#E7E5E4',
             cursor: 'pointer',
             borderRadius: '26%',
-            border: '2px solid #8C8C8C',
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             fontSize: 8,
             pointerEvents: 'all',
@@ -200,7 +240,7 @@ const BackhaulEdge = (props) => {
           <div className="popupe">
           <div className="inf-row">
             <p className="p1">Power In:</p>
-            <p className="p2">{newdat.powerIn} dbm</p>
+            <p className="p2">{newdat.powerIn.toFixed(3)} dbm</p>
           </div>
           <div className="inf-row">
             <p className="p1">Fiber attenuation:</p>
@@ -220,7 +260,7 @@ const BackhaulEdge = (props) => {
           </div>
           <div className="inf-row">
             <p className="p1">Power out:</p>
-            <p className="p2">{newdat.powerOut} dbm</p>
+            <p className="p2">{newdat.powerOut.toFixed(3)} dbm</p>
           </div>
         </div>
         )}

@@ -29,10 +29,11 @@ import { SplitterProvider } from "./context/SplitterContext"
 import { TapProvider } from "./context/TapContext"
 import { TapsProvider } from "./context/TapsContext"
 import { SplitProvider } from "./context/SplitContext"
+import Background from "./components/Background"
 
 function App() {
-  return (
-    <AuthProvider>
+  return ( 
+        <AuthProvider>
       <SplitProvider>
         <TapsProvider>
         <SpanProvider>

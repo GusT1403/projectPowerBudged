@@ -17,9 +17,9 @@ export default ({ fromX, fromY, toX, toY }) => {
       <circle
         cx={toX}
         cy={toY}
-        fill="#fff"
+        fill="#F2C9E4"
         r={3}
-        stroke='white'
+        stroke='#F2C9E4'
         strokeWidth={2}
       />
     </g>

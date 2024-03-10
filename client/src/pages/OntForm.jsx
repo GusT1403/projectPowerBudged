@@ -43,8 +43,6 @@ function OntForm() {
     const sensitivity = parseFloat(data.sensitivity)
     const overload = parseFloat(data.overload)
 
-    //const powerOut = power - connector //calculos para la atenuacion
-
     const newData = { sensitivity, overload }
 
     updateOnt(params.id, newData)
@@ -59,9 +57,12 @@ function OntForm() {
   return (
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
+        <div className="close" onClick={handleOutsideClick}>
+        x
+      </div>
         <form onSubmit={onSubmit}>
           <h1>Optical Network Terminal (ONT)</h1>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='sensitivity'>ONT sensitivity [db]</label>
             <input
               id='sensitivity'
@@ -74,7 +75,7 @@ function OntForm() {
               <span className='error'>{errors.sensitivity.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='overload'>ONT overload [db]</label>
             <input
               id='overload'
@@ -86,7 +87,7 @@ function OntForm() {
               <span className='error'>{errors.overload.message}</span>
             )}
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
           <button type="button" className="del-btn" onClick={(e) => {
             e.preventDefault()
             deleteOnt(params.id)

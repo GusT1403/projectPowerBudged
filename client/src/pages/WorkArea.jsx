@@ -254,26 +254,16 @@ const WorkArea = () => {
         y: event.clientY - reactFlowBounds.top,
       }) 
 
-      /*const transferData = JSON.parse(event.dataTransfer.getData("application/reactflow"))
-      const { type, data } = transferData
-
-      if (!type) {
-        return
-      }
-      const position = reactFlowInstance.project({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      })*/
-
       if (typeof type === "undefined" || !type) {
         return
       }
       if (type === "ontnode") {
         const sensitivity = 0
         const overload = 0
+        const powerIn = 0
         const x = position.x
         const y = position.y
-        const newData = { sensitivity, overload, x, y }
+        const newData = { sensitivity, overload, powerIn, x, y }
         const createData = async () => {
           await createOnt(newData)
           await getOnts()
@@ -405,7 +395,7 @@ const WorkArea = () => {
             style={{
               minWidth: "80vw",
               minHeight: "90vh",
-              backgroundColor: "#6c6c6c",
+              backgroundColor: "#25252597",
               borderRadius: "12px",
             }}
             nodeTypes={nodeTypes}
@@ -417,14 +407,14 @@ const WorkArea = () => {
               id='1'
               gap={10}
               lineWidth={0.4}
-              color='#f1f1f1'
+              color='#E7E5E4'
               variant={BackgroundVariant.Lines}
             />
             <Background
               id='2'
               gap={100}
               offset={1}
-              color='#ccc'
+              color='#E7E5E4'
               variant={BackgroundVariant.Lines}
             />
             <Controls />

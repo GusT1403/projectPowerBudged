@@ -92,9 +92,12 @@ function BackhaulForm() {
   return (
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
+        <div className="close" onClick={handleOutsideClick}>
+        x
+      </div>
         <form onSubmit={onSubmit}>
           <h1>Backhaul link</h1>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='attenuation'>Fiber optic Attenuation [db/Km]</label>
             <input
               id='attenuation'
@@ -107,7 +110,7 @@ function BackhaulForm() {
               <span className='error'>{errors.attenuation.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='cablesd'>Cable storage Distance [m]</label>
             <input
               id='cablesd'
@@ -119,7 +122,7 @@ function BackhaulForm() {
               <span className='error'>{errors.cablesd.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='cablesr'>Remaining cable storage [m]</label>
             <input
               id='cablesr'
@@ -133,14 +136,14 @@ function BackhaulForm() {
           </div>
           <div className="combo-box">
             <label htmlFor='cablesr'>Select distance options</label>
-            <select id="span-select" value={selectedSpan} onChange={handleSelect}  autoFocus>
+            <select id="span-select" value={selectedSpan} onChange={handleSelect} >
               <option value="">Entry manually</option>
               {span.map((spans) => (
                 <option key={spans._id} value={spans._id}>{spans.name}</option>
               ))}
             </select>
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='distance'>Total Distance [m]</label>
             <input
               id='distance'
@@ -152,7 +155,7 @@ function BackhaulForm() {
               <span className='error'>{errors.distance.message}</span>
             )}
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
         </form>
       </div>
     </div>

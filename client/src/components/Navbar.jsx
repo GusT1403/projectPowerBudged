@@ -9,7 +9,7 @@ function Navbar() {
     <div className="navheader">
       <nav className="navbar container">
       <Link to="/" className="nav-link">
-        <h1>FTTx</h1>
+        <h1>U-BALANCE</h1>
       </Link>
       <ul className="nav-list">
         {isAuthenticated ? 

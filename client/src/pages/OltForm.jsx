@@ -80,9 +80,12 @@ function OltForm() {
   return (
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
+        <div className="close" onClick={handleOutsideClick}>
+        x
+      </div>
         <form onSubmit={onSubmit}>
           <h1>Optical Line Terminal (OLT)</h1>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='power'>OLT power [dbm]</label>
             <input
               id='power'
@@ -95,7 +98,7 @@ function OltForm() {
               <span className='error'>{errors.power.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='connector'>Connector loss [db]</label>
             <input
               id='connector'
@@ -107,7 +110,7 @@ function OltForm() {
               <span className='error'>{errors.connector.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='coupler'>Coupler duplex adapter loss [db]</label>
             <input
               id='coupler'
@@ -119,7 +122,7 @@ function OltForm() {
               <span className='error'>{errors.coupler.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='fusion'>Fusion or splice loss [db]</label>
             <input
               id='fusion'
@@ -131,7 +134,7 @@ function OltForm() {
               <span className='error'>{errors.fusion.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='maxDistance'>Maximum link distance [km]</label>
             <input
               id='maxDistance'
@@ -143,7 +146,7 @@ function OltForm() {
               <span className='error'>{errors.maxDistance.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='roll'>Cable distance on roll [m]</label>
             <input
               id='roll'
@@ -155,7 +158,7 @@ function OltForm() {
               <span className='error'>{errors.roll.message}</span>
             )}
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
         </form>
       </div>
     </div>

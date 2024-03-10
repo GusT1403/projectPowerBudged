@@ -68,6 +68,9 @@ function SplitterForm() {
   return (
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
+        <div className="close" onClick={handleOutsideClick}>
+        x
+      </div>
         <form onSubmit={onSubmit}>
           <h1>Splitter (NAP)</h1>
           <div className="combo-box">
@@ -78,7 +81,7 @@ function SplitterForm() {
               ))}
             </select>
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='configuration'>Configuration</label>
             <input
               id='configuration'
@@ -92,7 +95,7 @@ function SplitterForm() {
               <span className='error'>{errors.configuration.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='loss'>Splitter loss [dB]</label>
             <input
               id='loss'
@@ -104,7 +107,7 @@ function SplitterForm() {
               <span className='error'>{errors.loss.message}</span>
             )}
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
           <button type="button" className="del-btn" onClick={(e) => {
             e.preventDefault()
             deleteSplitter(params.id)

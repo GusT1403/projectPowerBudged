@@ -74,6 +74,9 @@ function TapForm() {
   return (
     <div className='content2' onClick={handleOutsideClick}>
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
+        <div className="close" onClick={handleOutsideClick}>
+        x
+      </div>
         <form onSubmit={onSubmit}>
           <h1>Unbalanced splitter (TAP)</h1>
           <div className="combo-box">
@@ -84,7 +87,7 @@ function TapForm() {
               ))}
             </select>
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='configuration'>Configuration</label>
             <input
               id='configuration'
@@ -98,7 +101,7 @@ function TapForm() {
               <span className='error'>{errors.configuration.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='insert'>INSERT [db]</label>
             <input
               id='insert'
@@ -112,7 +115,7 @@ function TapForm() {
               <span className='error'>{errors.insert.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='tap'>TAP [db]</label>
             <input
               id='tap'
@@ -125,7 +128,7 @@ function TapForm() {
               <span className='error'>{errors.tap.message}</span>
             )}
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
           <button type="button" className="del-btn" onClick={(e) => {
             e.preventDefault()
             deleteTap(params.id)

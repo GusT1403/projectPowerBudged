@@ -23,10 +23,10 @@ export default () => {
           <h1>ONT</h1>
         </div>
         <div className="node-icon">
-        <div class="ont">
-          <div class="ont-body">
-            <div class="ont-display"></div>
-            <div class="ont-connector"></div>
+        <div className="ont">
+          <div className="ont-body">
+            <div className="ont-display"></div>
+            <div className="ont-connector"></div>
           </div>
         </div>
         </div>
@@ -38,13 +38,13 @@ export default () => {
         draggable
       >
         <div className="node-title">
-          <h1>SPLITTER</h1>
+          <h1>NAP</h1>
         </div>
         <div className="node-icon">
-          <div class="splitter">
-            <div class="splitter-body">
-            <div class="splitter-connector input"></div>
-            <div class="splitter-connector output"></div>
+          <div className="splitter">
+            <div className="splitter-body">
+            <div className="splitter-connector input"></div>
+            <div className="splitter-connector output"></div>
           </div>
         </div>
         </div>
@@ -58,11 +58,11 @@ export default () => {
           <h1>TAP</h1>
         </div>
         <div className="node-icon">
-          <div class="tap">
-            <div class="tap-body">
-            <div class="tap-connector input"></div>
-            <div class="tap-connector output"></div>
-            <div class="tap-connector output-2"></div>
+          <div className="tap">
+            <div className="tap-body">
+            <div className="tap-connector input"></div>
+            <div className="tap-connector output"></div>
+            <div className="tap-connector output-2"></div>
           </div>
         </div>
         </div>

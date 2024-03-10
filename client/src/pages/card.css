@@ -11,11 +11,11 @@
   min-width: 200px;
   max-width: 200px;
   width: fit-content;
-  background-color: #f2f2f249;
-  border: 2px solid rgba(255, 255, 255, .2);
+  background-color: #B3B1AF;
+  border: 2px solid #D7D5D3;
 	backdrop-filter: blur(30px);
 	text-align: left;
-	color: #595959;
+	color: #494E68;
   margin: 10px;
   position: relative;
 }
@@ -33,31 +33,31 @@
 }
 
 .action-del{
-	background-color: #afafaf;
+	background-color: #8C92A2;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
 	line-height: 1;
 	transition: 0.45s ease;
-  font-weight: 300;
+  font-weight: 350;
   font-size: 12px;
 	height: 30px;
 	width: 40px;
   margin: 2px;
   padding: 10px;
 	border-radius: 30px;
-	border: 2px solid #8C8C8C;
+	border: 2px solid #8C92A2;
 	color: #5f2a2a;
   text-decoration: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  box-shadow: 1px 1px 4px 0.5px #A89283;
 }
 .action-del:hover{
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.556);
 }
 
 .action-edit{
-	background-color: #afafaf;
+	background-color: #8C92A2;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -71,16 +71,16 @@
   margin: 2px;
   padding: 10px;
 	border-radius: 30px;
-	border: 2px solid #8C8C8C;
-	color: #f2f2f2;
+	border: 2px solid #8C92A2;
+	color: #E7E5E4;
   text-decoration: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  box-shadow: 1px 1px 4px 0.5px #A89283;
 }
 .action-edit:hover{
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.556);
 }
 .description{
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
   max-width: 150px;
 }

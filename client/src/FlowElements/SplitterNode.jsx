@@ -5,7 +5,7 @@ import "./Splitter.css"
 
 const SplitterNode = ({ data }) => {
   const [showPopup, setShowPopup] = useState(false)
-  console.log("splitter", data)
+  
   return (
     <div className='splitter-node'>
       <div className="info-circle" onMouseEnter={() => setShowPopup(true)} onMouseLeave={() => setShowPopup(false)}>
@@ -15,11 +15,11 @@ const SplitterNode = ({ data }) => {
         <div className="popup">
         <div className="info-row">
           <p className="p1">Power In:</p>
-          <p className="p2">{data.powerIn} dbm</p>
+          <p className="p2">{data.powerIn.toFixed(3)} dbm</p>
         </div>
         <div className="info-row">
           <p className="p1">Power Out:</p>
-          <p className="p2">{data.out} dbm</p>
+          <p className="p2">{data.out.toFixed(3)} dbm</p>
         </div>
         <div className="info-row">
           <p className="p1">Configuration:</p>

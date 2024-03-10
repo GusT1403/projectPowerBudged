@@ -23,7 +23,7 @@ const OltNode = ({ data }) => {
         <div className="popup">
         <div className="info-row">
           <p className="p1">Power Out:</p>
-          <p className="p2">{data.powerOut} dbm</p>
+          <p className="p2">{data.powerOut.toFixed(3)} dbm</p>
         </div>
         <div className="info-row">
           <p className="p1">Coil cable length:</p>
