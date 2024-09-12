@@ -19,6 +19,7 @@ function TapForm() {
   const navigate = useNavigate()
   const params = useParams()
   const [ selectedTaps, setSelectedTaps ] = useState("")
+  let powerIn = 0
 
   useEffect(() => {
     async function loadTap() {
@@ -33,7 +34,12 @@ function TapForm() {
     loadTap()
   }, [])
 
-  const powerIn = parseFloat(tap[0].powerIn)
+  for (let i = 0; i < tap.length; i++) {
+      if(tap[i]._id === params.id)
+      {
+        powerIn = parseFloat(tap[i].powerIn)
+      }
+  }
 
   const handleSelect = (event) => {
     const selectedId = event.target.value
@@ -62,6 +68,11 @@ function TapForm() {
     const tapout = (powerIn - tap)
     const insertout = (powerIn - insert)
     const newData = { configuration, insert, tap, tapout, insertout }
+    console.log("powerIn", powerIn)
+    console.log("insert", insert)
+    console.log("tap", tap)
+    console.log("tapOut", tapout)
+    console.log("insertOut", insertout)
     updateTap(params.id, newData)
 
     navigate("/workarea")

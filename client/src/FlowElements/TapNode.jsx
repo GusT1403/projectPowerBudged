@@ -16,15 +16,15 @@ const TapNode = ({ data }) => {
         <div className="popup">
         <div className="info-row">
           <p className="p1">Power In:</p>
-          <p className="p2">{data.powerIn} dbm</p>
+          <p className="p2">{data.powerIn.toFixed(3)} dbm</p>
         </div>
         <div className="info-row">
           <p className="p1">TAP output:</p>
-          <p className="p2">{data.tapout} dbm</p>
+          <p className="p2">{data.tapout.toFixed(3)} dbm</p>
         </div>
         <div className="info-row">
           <p className="p1">INSERT output:</p>
-          <p className="p2">{data.insertout} dbm</p>
+          <p className="p2">{data.insertout.toFixed(3)} dbm</p>
         </div>
         <div className="info-row">
           <p className="p1">Configuration:</p>
@@ -53,7 +53,7 @@ const TapNode = ({ data }) => {
         <div className="popinsert">
         <div className="info-row">
           <p className="p1">Insert out</p>
-          <p className="p2">{data.insertout}</p>
+          <p className="p2">{data.insertout.toFixed(3)}</p>
         </div>
       </div>
       )}
@@ -81,7 +81,7 @@ const TapNode = ({ data }) => {
         <div className="poptap">
         <div className="info-row">
           <p className="p1">Tap Out</p>
-          <p className="p2">{data.tapout}</p>
+          <p className="p2">{data.tapout.toFixed(3)}</p>
         </div>
       </div>
       )}

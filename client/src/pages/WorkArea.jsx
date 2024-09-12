@@ -20,11 +20,12 @@ import TapNode from "../FlowElements/TapNode"
 import Sidebar from "../FlowElements/Sidebar"
 import BackhaulEdge from "../FlowElements/BackhaulEdge"
 import ConnectionLine from "../FlowElements/ConnectionLine"
+import Loading from "./Loading"
 import "../FlowElements/Flow.css"
 
 const proOptions = { hideAttribution: true }
 const initialViewport = { x: 500, y: 150, zoom: 1.2 }
-
+console.log("WorkArea reloaded")
 const WorkArea = () => {
 
   const nodeTypes = useMemo(() => ({
@@ -47,10 +48,18 @@ const WorkArea = () => {
   const { updateOnt, createOnt, getOnts, ont } = useOnt()
   const { updateSplitter, createSplitter, getSplitters, splitter } = useSplitter()
   const { updateTap, createTap, getTaps, tap } = useTap()
-
   const { createBackhaul, getBackhauls, backhaul } = useBackhaul()
 
   const [hasLoaded, setHasLoaded] = useState(false)
+  const [complete, setComplete] = useState(false)
+
+
+  console.log("OLT", olt)
+  console.log("ONT", ont)
+  console.log("SPLITTER", splitter)
+  console.log("TAP", tap)
+  console.log("BH", backhaul)
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,8 +145,10 @@ const WorkArea = () => {
     })
     setNodes(updatedNodes)
     setEdges(updatedEdges)
+    setComplete(true)
+    console.log("reloaded")
   }
-}, [hasLoaded, olt, ont, splitter, tap, backhaul])
+}, [hasLoaded, olt, ont, splitter, tap, backhaul, location.pathname])
 
   useEffect(() => {
     if (hasLoaded && olt.length === 0) {
@@ -238,6 +249,12 @@ const WorkArea = () => {
       setNodes((nds) => nds.concat(TapNodes))
     }
   }, [hasLoaded, tap])
+
+  console.log("OLT", olt)
+  console.log("ONT", ont)
+  console.log("SPLITTER", splitter)
+  console.log("TAP", tap)
+  console.log("BH", backhaul)
 
   const onDragOver = useCallback((event) => {
     event.preventDefault()
@@ -375,6 +392,15 @@ const WorkArea = () => {
           console.log("El edge ya existe, no se añadirá de nuevo")
         }
     }
+if(!complete){
+  return(
+    <ReactFlowProvider className='initial-flow'>
+      <Sidebar />
+      <Loading></Loading>
+    </ReactFlowProvider>
+    
+  )
+} else{
 
   return (
     <div className='dndflow'>
@@ -422,7 +448,8 @@ const WorkArea = () => {
         </div>
       </ReactFlowProvider>
     </div>
-  )
+  )  
+}
 }
 
 export default WorkArea

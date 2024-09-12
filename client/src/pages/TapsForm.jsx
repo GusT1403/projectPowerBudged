@@ -88,7 +88,7 @@ function TapsForm() {
               <span className='error'>{errors.configuration.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='insert'>INSERT up insert loss [db]</label>
             <input
               id='insert'
@@ -101,7 +101,7 @@ function TapsForm() {
               <span className='error'>{errors.insert.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='tap'>TAP down insert loss [db]</label>
             <input
               id='tap'
@@ -113,7 +113,7 @@ function TapsForm() {
               <span className='error'>{errors.tap.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='description'>Short description</label>
             <input
               id='description'
@@ -122,7 +122,7 @@ function TapsForm() {
               {...register("description")}
             />
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
         </form>
       </div>
     </div>

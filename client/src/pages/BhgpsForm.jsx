@@ -73,16 +73,16 @@ function bhgpsForm() {
       <div className='wrapper2' onClick={(e) => e.stopPropagation()}>
         <button onClick={getCoordinates} className='gps-coords'>Get Coordinates</button>
         <form onSubmit={onSubmit}>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor="">Latitude</label>
             <input id='latitude' type='text' {...register("latitude")}/>
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor="">Longitude</label>
             <input id='longitude' type='text' {...register("longitude")}/>
           </div>
             
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
         </form>
       </div>
     </div>

@@ -1,0 +1,54 @@
+.wraph{
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  min-height: 93vh;
+}
+
+.containerh{
+  padding-block: 1.5rem;
+  width: 80vw;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #595959;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.titleh{
+  display: flex;
+  justify-content: start;
+  padding: 1.5rem;
+  font-weight: 600;
+}
+
+.titleh h1{
+  color: #494E68;
+}
+
+.descripth{
+  display: flex;
+  justify-content: start;
+  padding: 2rem;
+  font-weight: 100;
+}
+
+.descripth h4{
+  color: #494E68;
+}
+
+.autorh{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 2rem;
+  padding-inline: 12rem;
+  margin-inline: 12rem;
+}
+
+.autorh h6{
+  color: #8C92A2;
+}

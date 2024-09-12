@@ -79,7 +79,7 @@ function TapsForm() {
               <span className='error'>{errors.configuration.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='iloss'>Max insert loss [dB]</label>
             <input
               id='loss'
@@ -92,7 +92,7 @@ function TapsForm() {
               <span className='error'>{errors.loss.message}</span>
             )}
           </div>
-          <div className='input-box'>
+          <div className='input-box2'>
             <label htmlFor='description'>Short description</label>
             <input
               id='description'
@@ -101,7 +101,7 @@ function TapsForm() {
               {...register("description")}
             />
           </div>
-          <button className='btn'>Save</button>
+          <button className='btn2'>Save</button>
         </form>
       </div>
     </div>

@@ -19,6 +19,7 @@ function SplitterForm() {
   const navigate = useNavigate()
   const params = useParams()
   const [ selectedSplit, setSelectedSplit] = useState("")
+  let powerIn = 0
 
   useEffect(() => {
     async function loadSplitter() {
@@ -32,7 +33,12 @@ function SplitterForm() {
     loadSplitter()
   }, [])
 
-  const powerIn = parseFloat(splitter[0].powerIn)
+   for (let i = 0; i < splitter.length; i++) {
+    if(splitter[i]._id === params.id)
+    {
+      powerIn = parseFloat(splitter[i].powerIn)
+    }
+} 
 
   const handleSelect = (event) => {
     const selectedId = event.target.value
@@ -51,7 +57,7 @@ function SplitterForm() {
     }
 
     clearErrors(["loss"])
-
+    console.log(powerIn)
     const configuration = data.configuration
     const loss = parseFloat(data.loss)
     const out = powerIn - loss

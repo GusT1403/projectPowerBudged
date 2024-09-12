@@ -38,7 +38,7 @@ const BackhaulEdge = (props) => {
   const {getTap, updateTap} = useTap()
   const {updateBackhaul} = useBackhaul()
   const {updateOnt} = useOnt()
-
+  //console.log("Backhaul loaded")
   useEffect(() => {
     const loadResources = async () => {
       await getOlts();
@@ -54,7 +54,6 @@ const BackhaulEdge = (props) => {
     else if(inpuInfo[1] === 'splitter' && oltReady){
       const loadSplitter = async () => {
         const splitter = await getSplitter(inpuInfo[0])
-        console.log(splitter)
         calculateSplitterData(olt[0],splitter)
       }
       loadSplitter()
@@ -108,6 +107,7 @@ const BackhaulEdge = (props) => {
   }
 
   const calculateSplitterData = (olt, splitter) => {
+    
     const cablesd = parseFloat(data.cablesd)
     const cablesr = parseFloat(data.cablesr)
     const distance = parseFloat(data.distance)
@@ -118,16 +118,20 @@ const BackhaulEdge = (props) => {
     let odistance = 0
     let fusions = 0
     let powerOut = 0
+
     const powerIn = splitter.out
-    if(distance === 0 ){powerOut = (splitter.out - olt.fusion)}
-    if(cablesd != 0 && roll != 0){crossarms = Math.ceil((distance/1000) / (cablesd / roll))}
+    if(distance === 0 ){
+      powerOut = (splitter.out - olt.fusion)
+      fusions = 1
+    }
+    if(cablesd !=0 && roll != 0){crossarms = Math.ceil((distance/1000) / (cablesd / roll))}
     if(crossarms != 0 && cablesr != 0 && roll != 0) {odistance = (crossarms * (cablesr)) + distance} else {
       odistance = distance
     }
     if(odistance != 0 && roll != 0) {fusions = (Math.ceil(odistance / roll)) - 1} else {
       fusions = (Math.ceil(odistance / roll)) - 1
     }
-    if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusions !=0 && fusion !=0){
+    if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusion !=0){
       powerOut = (powerIn -(attenuation * (odistance/1000)) - (fusions * fusion))- fusion}
     const newData = { crossarms, odistance, powerIn, powerOut }
     const newD = { crossarms, odistance, powerIn, fusions, powerOut }
@@ -163,19 +167,21 @@ const BackhaulEdge = (props) => {
     let fusions = 0
     let powerOut = 0
     let powerIn = 0
-    if(inpuInfo[1] === "tap"){if(distance === 0 ){powerOut = (tap.tapout - olt.fusion)}
+    if(inpuInfo[1] === "tap"){if(distance === 0 ){
+      powerOut = (tap.tapout - olt.fusion)
+      fusions = 1}
       powerIn = tap.tapout
     } else if(inpuInfo[1] === "insert"){if(distance === 0 ){powerOut = (tap.insertout - olt.fusion)}
       powerIn = tap.insertout
     }
-    if(cablesd != 0 && roll != 0){crossarms = Math.ceil((distance/1000) / (cablesd / roll))}
+    if(cablesd != 0 && roll != 0){crossarms = Math.ceil((distance) / (cablesd))}
     if(crossarms != 0 && cablesr != 0 && roll != 0) {odistance = (crossarms * (cablesr)) + distance}  else {
       odistance = distance
     }
     if(odistance != 0 && roll != 0) {fusions = (Math.ceil(odistance / roll)) - 1}  else {
       fusions = (Math.ceil(odistance / roll)) - 1
     }
-    if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusions !=0 && fusion !=0){powerOut = (powerIn -(attenuation * (odistance/1000)) - (fusions * fusion))- fusion}
+    if(distance !=0 && powerIn !=0 && attenuation !=0 && odistance !=0 && fusion !=0){powerOut = (powerIn -(attenuation * (odistance/1000)) - (fusions * fusion))- fusion}
     const newData = { crossarms, odistance, powerIn, powerOut }
     const newD = { crossarms, odistance, powerIn, fusions, powerOut }
     setNewdat(newD)
